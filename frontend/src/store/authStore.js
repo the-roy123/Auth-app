@@ -1,8 +1,7 @@
 import { create } from "zustand";
 import axios from "axios";
 
-const API_URL = "http://localhost:3000/api/auth";
-
+const API_URL = import.meta.env.MODE === "development" ? "http://localhost:3000/api/auth" : "/api/auth";
 axios.defaults.withCredentials = true;
 
 export const useAuthStore = create((set) => ({
@@ -68,7 +67,7 @@ export const useAuthStore = create((set) => ({
 	checkAuth: async () => {
 		set({ isCheckingAuth: true, error: null });
 		try {
-			const response = await axios.get("http://localhost:3000/api/auth/check-auth", {  // Ensure this URL matches backend
+			const response = await axios.get(`${API_URL}/check-auth`); {  // Ensure this URL matches backend
 				withCredentials: true  // 🔥 Required to send cookies
 			});
 			console.log("✅ Auth Check Success:", response.data);
