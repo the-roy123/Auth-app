@@ -69,7 +69,7 @@ export const useAuthStore = create((set) => ({
 		try {
 			const response = await axios.get(`${API_URL}/check-auth`); {  // Ensure this URL matches backend
 				withCredentials: true  // 🔥 Required to send cookies
-			});
+			};
 			console.log("✅ Auth Check Success:", response.data);
 			set({ user: response.data.user, isAuthenticated: true, isCheckingAuth: false });
 		} catch (error) {
